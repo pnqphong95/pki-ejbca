@@ -1,0 +1,114 @@
+/* CSS Document */
+
+body{
+	background: url(images/bg.png) #DDE2DC;
+	background-repeat: repeat-x;
+	margin: 0px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	
+}
+
+P {
+	line-height: 16px;
+}
+
+.level1{
+	
+}
+
+#LeftMenu {
+	padding: 0px;
+	margin: 0px;
+	list-style-type: none;
+}
+.level1 {
+	color: green;
+	font-weight: bold;
+	padding-left: 10px;
+	margin-top: 3px;
+}
+
+.level1 a{
+	color: green;
+	text-decoration: none;
+}
+.level1 a:hover{
+	color: blue;
+	text-decoration: none;
+}
+.level1 a:visited{
+	color: green;
+	text-decoration: none;
+}
+
+.level2 a{
+	color: #888888;
+	text-decoration: none;
+}
+.level2 a:hover{
+	color: blue;
+	text-decoration: none;
+}
+.level2 a:visited{
+	color: #888888;
+	text-decoration: none;
+}
+
+
+.level2{
+	color: #888888;
+	font-weight: bold;
+	list-style-type: none;
+	list-style-image: url(images/bullet_icon.png);
+	border-bottom: solid 1px #eee;
+	padding: 7px;
+	padding-left: 0px;
+}
+
+
+.TableSanpham {
+	border-collapse: collapse;
+}
+.TableSanpham td {
+	border: solid 1px #ccc;
+	text-align: center;
+	padding: 7px 10px 7px 10px;
+	background: #FFF;
+}
+.TableSanpham .TenSanPham {
+	color: #06C;
+	font-weight: bold;
+}
+.TableSanpham .Gia {
+	color: #F00;
+	font-weight:  bold;
+}
+.TableSanpham .HinhSanPham {
+	width: 130px;
+	height: 97px;
+	margin-bottom: 10px;
+}
+.TableSanpham .tieude {
+	background: url('images/container_header_bg.png');
+	background-repeat: repeat-x;
+	text-align: left;
+	font-weight: bold;
+	font-size: 14px;
+	color: #060;
+}
+
+/* CSS menu */
+.TableContainer {
+	background: #FFFFFF;
+	border-collapse: collapse;
+	border: 1px solid #CCCCCC;
+	margin-bottom: 5px;
+}
+.TableContainer .Header {
+	background: url("images/container_header_bg.png") repeat-x;
+	color: #444444;
+	font-weight: bold;
+	height: 35px;
+	padding-left: 7px;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+
+<script language="javascript" src="calendar/jquery.min.js"></script>
+<script language="javascript" src="calendar/jquery.ui.datepicker-vi.js"></script>
+<script language="javascript" src="calendar/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="calendar/jquery-ui.css" />
+<script language="javascript" src="ckeditor/ckeditor.js"></script>
+
+<script>
+	$(document).ready(function(e) {
+		$("#txtNgaySinh").datepicker({
+			buttonImage: 'images/calendar.png',
+			buttonImageOnly: true,
+			changeMonth: true,
+			changeYear: true,
+			showOn: 'button',
+			isDisabled: true,
+			dateFormat: 'dd/mm/yy'
+		});				
+		
+		CKEDITOR.replace("txtNoiDung",{});
+    });
+</script>
+
+</head>
+<body>
+	Ngày sinh: <input type="text" id="txtNgaySinh" />    
+	<br /><br />
+    Nội dung: <div style="width:600px"><textarea id="txtNoiDung"></textarea></div>
+    
+</body>
+</html>
