@@ -1,8 +1,13 @@
 <?php
-	//session_start();
+	define('DOCUMENT_ROOT', dirname(realpath(__FILE__)).'/');
+	session_start();
 	include_once("../thuvien/dulieu.php");
-	include_once("../php/session.php");
 	include_once("../php/link.php");
+	include_once("functions.php");
+	if (!isset($_SESSION['mscb'])) {
+		redirect_to("login.php");
+	}
+	
 ?>
 
 <div class="wapper">

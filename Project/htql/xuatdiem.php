@@ -1,10 +1,8 @@
 <?php
-	//session_start();
+	session_start();
 	include('Crypt/RSA.php');
 	include_once("../thuvien/dulieu.php");
-	include_once("../php/session.php");
 	include_once("../php/link.php");
-	include_once("modal.php");
 
 
 	if(isset($_POST["btnXuatDiem"]))
@@ -68,7 +66,7 @@ fwrite($file,$ciphertext);
 				<div class="main_content_title">Nhập Điểm Học Phần</div>
 				<?php include_once("../php/header.php"); ?>				
 				<div class="main_content_data">
-				<form action="login.php?f=xuatdiem" method="POST">
+				<form action="xuatdiem.php" method="POST">
 					<input type="hidden" name="f" value="xuatdiem"/>
 					<table class="TableData">
 						<tr>

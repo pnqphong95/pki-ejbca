@@ -1,5 +1,7 @@
 <?php
+	include_once("functions.php");
 	session_start();
+	session_unset();
 	session_destroy();
-	echo "<script>window.location='login.php';</script>";
+	redirect_to("index.php");
 ?>
