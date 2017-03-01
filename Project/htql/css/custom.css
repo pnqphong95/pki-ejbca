@@ -1,0 +1,141 @@
+body {
+    width: 100%;
+    margin: 0%;
+    padding: 0px;
+    background: #e8f4ff;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+.container-fluid {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#header {
+    width: 100%;
+    height: 99px;
+    margin: 0px 0px 10px 0px;
+    padding: 0px;
+    background: #096ecd url("../images/bg_banner.png") repeat-y scroll 0px 0px / 100% 111%;
+}
+
+#banner {
+    position: relative;
+    width: 1024px;
+    height: 99px;
+    margin: 0px auto;  
+}
+
+.content {
+    width: 70%;
+    margin: 0px auto;
+    border: 2px dotted #b3daff;
+    border-radius: 10px 10px 5px 5px;
+    background-color: #fff;
+    padding: 20px 20px 40px 20px;
+}
+
+#loginbox {
+    width: 400px;
+    margin: 0px auto;
+    margin-top: 50px;
+}
+
+#loginbox>.panel-primary {
+    border: 0px;
+}
+
+#loginbox>.panel-primary>.panel-heading {
+    background: #fff url('../images/bg_module_top_cb.png') no-repeat center top;
+    height: 65px;
+    border: 0px;
+}
+
+.btn-primary {
+    background: #096ecd;
+}
+
+#btn-homepage {
+    position:absolute;
+    top: 35px;
+    right: -65px;
+    width: 110px;
+    height: 30px;
+    text-indent: -9999px;
+    background: url('../images/btn_homepage.png') no-repeat center top;
+}
+
+#btn-logout {
+    position:absolute;
+    right: -80;
+    width: 110px;
+    height: 30px;
+    text-indent: -9999px;
+    background: url('../images/btn_logout.png') no-repeat center top;
+}
+
+#user-login {
+	color:#fff;
+    position:absolute;
+    top: 70px;
+    right: -50px;
+    height: 30px;
+	font-weight:bold;
+}
+
+#btn-login{
+    width: 100%;
+}
+
+.bang {
+    border: 1px solid #096ecd;
+    border-radius: 10px;  
+}
+
+.bang>.tieude {
+    background-color: #075cab;
+    border-radius: 10px 10px 0px 0px; 
+    color: #fff;
+    border-bottom: 1px solid #075cab;
+    text-align: center;
+    font-size: 18px;
+}
+
+.bang>.noidung {
+    padding: 20px;
+}
+
+.bang>.chan {
+    background-color: #075cab;
+    border-radius: 0px 0px 10px 10px; 
+    color: #fff;
+    border-top: 1px solid #075cab;
+    padding: 5px 20px 5px 0px;
+    text-align: right;
+}
+
+.menu {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px dotted #b3daff; 
+}
+
+.btn-dakhoa{
+    color: #fff;
+    background-color:#777;
+    border-color: 1px solid #000;
+}
+
+.btn-dakhoa:hover{
+    color: #fff;
+}
+
+.btn-myblock {
+    display: block;
+    width: 25%;
+}
+
+.borderless td, .borderless th {
+    border: none;
+}
