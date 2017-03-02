@@ -3,18 +3,91 @@
     require_once('functions.php');
     require_once('render_view.php');
     require_once('../database/khokhoa.php');
+    require_once('libs/Crypt/AES.php');
     $khokhoa = getKhoa($_SESSION["gv_mscb"]);
+    
+    // redirect user to create key gui if user has not key.
     if ($khokhoa == null) {
         redirect_to('khoa.php');
     } 
     
     $locklist = array();
+
+    // excute when receiving a list transcript id
     if (isset($_POST['lock-selected'])) {
         $locklist = $_POST['locklist'];
-        print_r($locklist);
+    
+    // execute when receiving a transcript id
     } elseif (isset($_GET['id'])) {
-        array_push($locklist, $_GET['id']);
-        print_r($locklist);
+        if (is_array($_GET['id'])) {
+            $locklist = $_GET['id'];
+        } else {
+            $locklist = array($_GET['id']);
+        }
+    
+    // confirm key to lock transcript
+    } elseif (isset($_POST['confirmkey'])) {
+
+        // get transcript list from post method
+        $confirm_transcript = array();
+        if (isset($_POST['transcriptid'])) {
+            $confirm_transcript = $_POST['transcriptid'];
+            foreach ($confirm_transcript as $value) {
+                $bangdiem = getThongTinBangDiem($value);
+
+                // check if at least one transcript was locked then reselect other transcript in homepage
+                if ($bangdiem['lhp_dakhoa']) {
+                    $message = array(
+                        "status" => "danger",
+                        "message" => "Bảng điểm ".$bangdiem['hp_tenhp']." nhóm ".$bangdiem['lhp_nhom'].". Chọn lại bảng điểm khác."
+                    );
+                    $_SESSION["message"] = $message;
+                    redirect_to("trangchu.php");
+                }
+            }
+        }
+
+        // check if user choose type password key method
+        if (isset($_POST['passwordkey']) and $_POST['passwordkey'] != "") {
+            $aes = new Crypt_AES();
+            $aes->setKey($_SESSION['symmetric_key']);
+            $passkeydb = $aes->decrypt($khokhoa['khoa_matkhaukhoa']);
+            $passkey = $_POST['passwordkey'];
+            if ($passkey == $passkeydb) {
+                // khoadiem($bangdiem, $khoabimat)
+            } else {
+                $message = array(
+                    "status" => "danger",
+                    "message" => "Sai mật khẩu khóa. Khóa điểm không thành công."
+                );
+                $_SESSION["message"] = $message;
+                redirect_to("khoadiem.php?".http_build_query(array('id' => $confirm_transcript)));
+            }
+
+        // check if user choose upload file key method
+        } elseif (isset($_FILES['mykey'])) {
+            if ($_FILES['mykey']['error'] > 0)
+            {
+                 $message = array(
+                    "status" => "danger",
+                    "message" => "File khóa tải lên lỗi. Khóa điểm không thành công."
+                );
+                $_SESSION["message"] = $message;
+                redirect_to("khoadiem.php?".http_build_query(array('id' => $confirm_transcript)));
+            } else {
+                $privatekey = file_get_contents($_FILES["mykey"]["tmp_name"]);
+                if ($khokhoa['khoa_bimat'] == $privatekey) {
+                    // khoadiem($bangdiem, $khoabimat)
+                } else {
+                    $message = array(
+                        "status" => "danger",
+                        "message" => "File khóa sai. Khóa điểm không thành công."
+                    );
+                    $_SESSION["message"] = $message;
+                    redirect_to("khoadiem.php?".http_build_query(array('id' => $confirm_transcript)));
+                }
+            }
+        }
     }
 
     // Handling error return from session
@@ -86,6 +159,10 @@
                                 <strong style="color: red;">Khóa bí mật được lưu trên hệ thống. Nhập mật mã hoặc chọn tải khóa lên để khóa điểm</strong><hr>
                                 <form id="keyconfirm-form" class="form-inline" role="form"  action="khoadiem.php" method="POST" enctype="multipart/form-data">
                                     <div class="input-group">
+                                        <?php if (isset($locklist) and sizeof($locklist) > 0) {
+                                                foreach ($locklist as $value) { ?>
+                                                    <input type="hidden" name="transcriptid[]" value="<?php echo $value?>">
+                                        <?php }}?>
                                         <label for="password-key" class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></label>
                                         <input id="password-key" type="password" class="form-control input-md" name="passwordkey" placeholder="Nhập mật khẩu khóa bí mật">
                                         <span class="input-group-btn">
@@ -111,11 +188,19 @@
 
         <script>
             $(document).ready( function () {
+                $( "#get_key" ).click(function() {
+                    $( "#mykey" ).click();
+                });
+
+                $('input[type=file]').change(function (e) {
+                    $('#customfileupload').html($(this).val());
+                });
+
                 // Script hien thi tooltip thong bao loi
                 $('#keyconfirm-form input[type="password"]').tooltipster({ 
                     trigger: 'custom', // default is 'hover' which is no good here
                     onlyone: false,    // allow multiple tips to be open at a time
-                    position: 'right',  // display the tips to the right of the element
+                    position: 'top',  // display the tips to the right of the element
                     theme: 'tooltipster-noir',
                     timer: 1500
                 });
@@ -126,18 +211,21 @@
                     rules: {
                         passwordkey: {
                             required: function(element) {
-                                return $("#customfileupload").val() == "No file selected";
+                                var upload_file = $("#customfileupload").text();
+                                return upload_file == "No file selected";
                             }
                         },
                         mykey: {
                             required: function(element) {
-                                return $("#password-key").val() == "";
+                                var password_key = $("#password-key").text();
+                                alert(password_key);
+                                return password_key == "";
                             }
                         }
                     },
                     messages: {
-                        passwordkey: "Bạn phải chọn nhập mật khẩu khóa hoặc tải file khóa",
-                        mykey: "Bạn phải chọn nhập mật khẩu khóa hoặc tải file khóa"
+                        passwordkey: "Phải nhập mật khẩu hoặc tải khóa lên",
+                        mykey: "Phải nhập mật khẩu hoặc tải khóa lên"
                     },
                     errorPlacement: function (error, element) {
                         $(element).tooltipster('update', $(error).text());
@@ -149,14 +237,6 @@
                     submitHandler: function (form) {
                         form.submit();
                     }
-                });
-
-                $( "#get_key" ).click(function() {
-                    $( "#mykey" ).click();
-                });
-
-                $('input[type=file]').change(function (e) {
-                    $('#customfileupload').html($(this).val());
                 });
 
                 // Script auto close alert
