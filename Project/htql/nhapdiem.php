@@ -2,6 +2,20 @@
     session_start();
     require_once('functions.php');
     require_once('render_view.php');
+    if (isset($_GET['id'])) {
+        $bangdiem = getThongTinBangDiem($_GET['id']);
+        if ($bangdiem['lhp_dakhoa']) {
+            if (!$_SESSION['gv_admin']) {
+                $message = array(
+                    "status" => "warning",
+                    "message" => "Bảng điểm đã khóa. Không thể nhập điểm"
+                );
+                $_SESSION["message"] = $message;
+                redirect_to("error_handling.php");
+            }
+        }
+    }
+
     if (isset($_POST['save-diem'])) {
         if (isset($_POST['bangdiem'])) {
             $bangdiem = $_POST['bangdiem'];
