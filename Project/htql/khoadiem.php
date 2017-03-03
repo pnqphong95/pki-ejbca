@@ -3,6 +3,7 @@
     require_once('functions.php');
     require_once('render_view.php');
     require_once('../database/khokhoa.php');
+    require_once('../database/lophocphan.php');
     require_once('libs/Crypt/AES.php');
     $khokhoa = getKhoa($_SESSION["gv_mscb"]);
     
@@ -54,7 +55,13 @@
             $passkeydb = $aes->decrypt($khokhoa['khoa_matkhaukhoa']);
             $passkey = $_POST['passwordkey'];
             if ($passkey == $passkeydb) {
-                // khoadiem($bangdiem, $khoabimat)
+                $lock_success = khoaBangDiem($confirm_transcript, $khokhoa['khoa_bimat'], $khokhoa['khoa_congkhai']);
+                $message = array(
+                    "status" => "success",
+                    "message" => "Khóa thành công ".count($lock_success)." bảng điểm."
+                );
+                $_SESSION["message"] = $message;
+                redirect_to("trangchu.php");
             } else {
                 $message = array(
                     "status" => "danger",
@@ -77,7 +84,13 @@
             } else {
                 $privatekey = file_get_contents($_FILES["mykey"]["tmp_name"]);
                 if ($khokhoa['khoa_bimat'] == $privatekey) {
-                    // khoadiem($bangdiem, $khoabimat)
+                    $lock_success = khoaBangDiem($confirm_transcript, $khokhoa['khoa_bimat'], $khokhoa['khoa_congkhai']);
+                    $message = array(
+                        "status" => "success",
+                        "message" => "Khóa thành công ".count($lock_success)." bảng điểm."
+                    );
+                    $_SESSION["message"] = $message;
+                    redirect_to("trangchu.php");
                 } else {
                     $message = array(
                         "status" => "danger",
