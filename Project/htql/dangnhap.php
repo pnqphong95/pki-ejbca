@@ -64,7 +64,7 @@
                                     <input id="btn-login" type="submit" class="btn btn-primary btn-lg" name="submit_login" value="Đăng nhập">
                                 </div>
                             </div>
-                        </form><!-- login form -->
+                        </form><hr><!-- login form -->
                         
                         <?php if (isset($message)) { ?>
                             <div class="alert alert-danger alert-dismissable" id="error-msg-alert">
@@ -72,7 +72,11 @@
                                 <strong><?php echo $message; ?></strong>
                             </div>
                         <?php } ?>
-
+                        <div class="well well-sm">
+                            <p>Admin: 1111, password: lmhoang</p>
+                            <p>User: 1533, password: ncanh</p>
+                            <p>User: 1230, password: ptcong</p>
+                        </div>
                     </div><!-- login box body -->
                 </div><!-- login panel -->
             </div><!-- login box -->					
