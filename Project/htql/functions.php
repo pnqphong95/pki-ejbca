@@ -1,7 +1,8 @@
 <?php
 
-function redirect_to($where)
+function redirect_to($where, $time = 0)
 {
+	sleep($time);
 	header("Location: " . $where);
 	exit();
 }
