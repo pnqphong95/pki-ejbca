@@ -9,6 +9,10 @@
         redirect_to('dangnhap.php');
     }
 
+    // Handling error return from session
+    if (isset($_SESSION["message"])) {
+        $message = get_once_session('message');
+    }
 ?>
 
 
@@ -70,7 +74,15 @@
                         </div> <!-- bang -->
                     </form>
                 </div><!-- content body -->
-            </div><!-- content -->					
+                <?php if (isset($message)) { ?>
+                    <div style="width: 60%;margin: auto;text-align:center">
+                        <div class="alert alert-<?php echo $message['status']; ?> alert-dismissable" id="error-msg-alert">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong><?php echo $message['message']; ?></strong>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div><!-- content -->				
         </div><!-- container fluid -->
 
         <!-- Script -->
