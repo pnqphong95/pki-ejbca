@@ -40,7 +40,7 @@
                 if ($bangdiem['lhp_dakhoa']) {
                     $message = array(
                         "status" => "danger",
-                        "message" => "Bảng điểm ".$bangdiem['hp_tenhp']." nhóm ".$bangdiem['lhp_nhom'].". Chọn lại bảng điểm khác."
+                        "message" => "Bảng điểm ".$bangdiem['hp_tenhp']." nhóm ".$bangdiem['lhp_nhom']." đã khóa. Chọn lại bảng điểm khác."
                     );
                     $_SESSION["message"] = $message;
                     redirect_to("trangchu.php");
