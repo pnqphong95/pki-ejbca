@@ -1,2 +1,7 @@
 # PKI-EJBCA
-This project is my assignment in university. The requirements of assignment include learning public key infrastructure and apply that knowledge to make security for grade management system. 
+![alt text](https://wwwprimekeycom.cdn.triggerfish.cloud/uploads/2016/10/ejbca-logo.jpg "Logo of PrimeKey EJBCA")
+primekey.com
+
+
+1. What is public key infrastructure ? 
+2. How it apply to make security for grade management system.
